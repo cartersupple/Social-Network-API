@@ -30,11 +30,11 @@ const ThoughtsController = {
           },
 
     createThought({ params,body}, res) {
-        Thought.create(body)
+        Thoughts.create(body)
             .then(({
                 _id
             }) => {
-                return User.findOneAndUpdate(
+                return Users.findOneAndUpdate(
                 {_id: body.userId},{$push: {thoughts: _id}},{new: true});
             })
             .then(dbThoughtData => {
@@ -51,7 +51,7 @@ const ThoughtsController = {
     },
 
     updateThought({params,body}, res) {
-        Thought.findOneAndUpdate(
+        Thoughts.findOneAndUpdate(
             {_id: params.id}, body, {new: true,runValidators: true})
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
@@ -66,13 +66,13 @@ const ThoughtsController = {
     },
 
     deleteThought({params}, res) {
-        Thought.findOneAndDelete({_id: params.thoughtId })
+        Thoughts.findOneAndDelete({_id: params.thoughtId })
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => res.json(err));
     },
 
     addReactionToThought({params,body}, res) {
-        Thought.findOneAndUpdate(
+        Thoughts.findOneAndUpdate(
             { _id: params.thoughtId },{ $push: { reactions: body } },{ new: true, runValidators: true }
 )
             .then(dbThoughtData => {
@@ -89,7 +89,7 @@ const ThoughtsController = {
     },
 
     removeReactionFromThought({params}, res) {
-        Thought.findOneAndUpdate(
+        Thoughts.findOneAndUpdate(
             {_id: params.thoughtId}, {$pull: {reactions: {reactionId: params.reactionId}}}, {new: true})
     .then(dbThoughtData => {
         if (!dbThoughtData) {

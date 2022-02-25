@@ -52,7 +52,7 @@ const ThoughtsController = {
 
     updateThought({params,body}, res) {
         Thoughts.findOneAndUpdate(
-            {_id: params.id}, body, {new: true,runValidators: true})
+            {_id: params.thoughtId}, body, {new: true,runValidators: true})
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
                     res.status(404).json({

@@ -56,10 +56,10 @@ const userController = {
   },
 
   deleteUser({ params }, res) {
-    User.findOneAndDelete({ _id: params.userId })
+    Users.findOneAndDelete({ _id: params.userId })
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "ID incorrect please enter correct user ID." });
+          res.status(404).json({ message: "User has been deleted." });
           return;
         }
         res.json(dbUserData);

@@ -29,26 +29,17 @@ const ThoughtsController = {
               });
           },
 
-    createThought({ params,body}, res) {
-        Thoughts.create(body)
+          createThought({ body }, res) {
+            Thoughts.create(body)
             .then(({
                 _id
             }) => {
                 return Users.findOneAndUpdate(
                 {_id: body.userId},{$push: {thoughts: _id}},{new: true});
             })
-            .then(dbThoughtData => {
-                console.log(dbThoughtData);
-                if (!dbThoughtData) {
-                    res.status(404).json({
-                        message: '"User incorrect please enter correct user ID."'
-                    });
-                    return;
-                }
-                res.json(dbThoughtData);
-            })
-            .catch(err => res.json(err));
-    },
+              .then((dbUserData) => res.json(dbUserData))
+              .catch((err) => res.json(err));
+          },
 
     updateThought({params,body}, res) {
         Thoughts.findOneAndUpdate(

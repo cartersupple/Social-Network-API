@@ -1,5 +1,4 @@
 # Social-Network-API
-# React-Portfolio
 
 ## Description 
 All social media has to start somewhere. This Social Network API is the foundation of the social networks you see today. Using Express for routing and a MongoDB database, users can create usernames and post thoughts to other users. These can be responded to with reactions. Users can friend and unfriend each other at will. 
